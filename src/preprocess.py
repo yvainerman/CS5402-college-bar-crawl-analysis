@@ -19,7 +19,7 @@ def load_accelerometer_data():
     acc = acc.dropna()
 
     # hello yev
-    # this is where i remove the big spikes in the data that are absolutely KIRKING the averages
+    # this is where i remove the big spikes in the data that are messing up the averages
     # remove really large spiking in data (sensor errors)
     acc = acc[(acc["x"].abs() < 50) &
               (acc["y"].abs() < 50) &
@@ -31,7 +31,7 @@ def load_pids():
     path = os.path.join(DATA_DIR, "pids.txt")
     with open(path) as f:
         return [line.strip() for line in f]
-    
+
 def load_phone_types():
     path = os.path.join(DATA_DIR, "phone_types.csv")
     df = pd.read_csv(path)
