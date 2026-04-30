@@ -1,2 +1,4 @@
 project/
 processed/
+data/
+__pycache__/
