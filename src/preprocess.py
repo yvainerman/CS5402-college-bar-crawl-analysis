@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd
 
 # PATHS
-BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR   = os.path.join(BASE_DIR, "project", "data")
-CACHE_DIR  = os.path.join(BASE_DIR, "project", "processed")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(BASE_DIR, "project", "data")
+CACHE_DIR = os.path.join(BASE_DIR, "project", "processed")
 MODELS_DIR = os.path.join(BASE_DIR, "project", "models")
 
 TAB_DIR = os.path.join(CACHE_DIR, "tab")
@@ -13,7 +13,7 @@ SEQ_DIR = os.path.join(CACHE_DIR, "seq")
 
 # WINDOWING
 WINDOW_SIZE = 400 # 400 samples = 10 seconds at 40 Hz
-STRIDE      = 200 # 50% overlap, set to 400 for no overlap
+STRIDE = 200 # 50% overlap, set to 400 for no overlap
 
 # DATA LOADER
 def load_accelerometer_data():
@@ -176,7 +176,6 @@ def load_tab():
         np.load(os.path.join(TAB_DIR, "y.npy")),
         np.load(os.path.join(TAB_DIR, "pids.npy")),
     )
-
 
 def load_seq():
     return (

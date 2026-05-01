@@ -66,7 +66,7 @@ def main():
     report_sequential(X_seq, y_seq, pids_seq)
 
     # ONE SAMPLE CHECK
-    print("\n================ SAMPLE =================")
+    print("\nSAMPLE")
     print("Tabular sample:", X_tab[0])
     print("Label:", y_tab[0], "PID:", pids_tab[0])
 
