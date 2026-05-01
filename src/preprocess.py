@@ -12,8 +12,8 @@ TAB_DIR = os.path.join(CACHE_DIR, "tab")
 SEQ_DIR = os.path.join(CACHE_DIR, "seq")
 
 # WINDOWING
-WINDOW_SIZE = 400 # 400 samples = 10 seconds at 40 Hz
-STRIDE = 200 # 50% overlap, set to 400 for no overlap
+WINDOW_SIZE = 200 # 400 samples = 10 seconds at 40 Hz
+STRIDE = 100 # 50% overlap, set to 400 for no overlap
 
 # DATA LOADER
 def load_accelerometer_data():
