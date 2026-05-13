@@ -13,19 +13,13 @@ from sklearn.metrics import (
 
 from preprocess import RESULTS_DIR
 
-# ============================================================
-# DEVICE SETUP (Apple Silicon / CUDA / CPU)
-# ============================================================
-# This ensures the model runs on:
-# - Apple Silicon GPU (MPS) if available
-# - CUDA GPU if available
-# - CPU as fallback
+# device
 if torch.backends.mps.is_available():
-    device = torch.device("mps")   # Apple Silicon GPU (Metal Performance Shaders)
+    device = torch.device("mps")
 elif torch.cuda.is_available():
-    device = torch.device("cuda")   # NVIDIA GPU
+    device = torch.device("cuda")
 else:
-    device = torch.device("cpu")    # fallback CPU
+    device = torch.device("cpu")
 
 print(f"Using device: {device}")
 
@@ -126,11 +120,6 @@ class SimpleCNN(nn.Module):
 
 
 model = SimpleCNN()
-
-# ============================================================
-# DEVICE MOVE (MODEL → GPU / MPS / CPU)
-# ============================================================
-# This ensures all computations happen on the selected device
 model = model.to(device)
 
 n_params = sum(p.numel() for p in model.parameters())
@@ -141,10 +130,6 @@ print(f"\nModel: SimpleCNN  ({n_params:,} parameters)")
 n_pos = float((y_train == 1).sum())
 n_neg = float((y_train == 0).sum())
 
-# ============================================================
-# DEVICE MOVE (LOSS WEIGHT TENSOR)
-# ============================================================
-# pos_weight must live on same device as model
 pos_weight = torch.tensor([n_neg / max(n_pos, 1.0)], device=device)
 
 criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
@@ -168,9 +153,6 @@ def predict_probs(loader):
     model.eval()
     probs = []
     for xb, _ in loader:
-        # ========================================================
-        # DEVICE MOVE (INPUT BATCH → SAME DEVICE AS MODEL)
-        # ========================================================
         xb = xb.to(device)
 
         logits = model(xb)
@@ -193,9 +175,6 @@ for epoch in range(1, N_EPOCHS + 1):
     total_loss = 0.0
 
     for xb, yb in train_loader:
-        # ========================================================
-        # DEVICE MOVE (TRAIN BATCH → SAME DEVICE AS MODEL)
-        # ========================================================
         xb = xb.to(device)
         yb = yb.to(device)
 
